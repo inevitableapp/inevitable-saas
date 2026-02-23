@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 
-import { saveOnboardingData } from "@/app/actions/onboarding";
 
 export default function OnboardingWizard() {
     const [step, setStep] = useState(1);
@@ -24,7 +23,13 @@ export default function OnboardingWizard() {
         } else {
             setIsSubmitting(true);
             try {
-                await saveOnboardingData(formData);
+               await fetch("/api/onboarding", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(formData),
+});
                 console.log("Submitting", formData);
                 router.push("/dashboard");
             } catch (error) {

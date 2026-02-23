@@ -5,14 +5,43 @@ import { CVHeaderSection } from "@/components/cv-builder/CVHeaderSection";
 import { CVExperienceSection } from "@/components/cv-builder/CVExperienceSection";
 import { Button } from "@/components/ui/button";
 import { Save, Download, Eye } from "lucide-react";
+type CVHeader = Record<string, any>;
+
+type CVExperience = {
+  company?: string;
+  role?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+};
+
+type CVEducation = {
+  institution?: string;
+  degree?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+};
+
+type CVSkill = {
+  name?: string;
+  level?: string;
+};
+
+type CVData = {
+  header: CVHeader;
+  experiences: CVExperience[];
+  education: CVEducation[];
+  skills: CVSkill[];
+};
 
 export default function CVBuilderPage() {
-    const [cvData, setCvData] = useState({
-        header: {},
-        experiences: [],
-        education: [],
-        skills: [],
-    });
+const [cvData, setCvData] = useState<CVData>({
+  header: {},
+  experiences: [],
+  education: [],
+  skills: [],
+});
 
     const handleSave = async () => {
         // Call server action to save

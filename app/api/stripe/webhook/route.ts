@@ -4,7 +4,7 @@ import { StripeService } from "@/lib/stripe";
 
 export async function POST(req: Request) {
     const body = await req.text();
-    const signature = headers().get("Stripe-Signature") as string;
+  const signature = (await headers()).get("Stripe-Signature") as string;
 
     try {
         await StripeService.handleWebhook(body, signature);

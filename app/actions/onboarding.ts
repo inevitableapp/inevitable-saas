@@ -1,6 +1,3 @@
-"use client"; // Note: This will be moved to a separate file or handled as server action correctly. 
-// Actually, server actions should have "use server" at the top.
-
 "use server";
 
 import prisma from "@/lib/prisma";
