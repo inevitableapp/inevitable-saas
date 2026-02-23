@@ -41,7 +41,7 @@ export class StripeService {
                 const subscriptionId = session.subscription as string;
 
                 if (userId && subscriptionId) {
-                    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+                    const subscription: Stripe.Subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
                     const priceId = subscription.items.data[0].price.id;
 
                     // Find the plan enum by priceId
