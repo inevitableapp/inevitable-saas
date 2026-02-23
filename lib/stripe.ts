@@ -41,7 +41,7 @@ export class StripeService {
                 const subscriptionId = session.subscription as string;
 
                 if (userId && subscriptionId) {
-                    const subscription: Stripe.Subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
+                   const subscription = (await stripe.subscriptions.retrieve(subscriptionId)) as Stripe.Subscription;
                     const priceId = subscription.items.data[0].price.id;
 
                     // Find the plan enum by priceId
@@ -58,8 +58,8 @@ export class StripeService {
                             stripeId: subscriptionId,
                             plan: plan || "FREE",
                             status: subscription.status,
-                            currentPeriodStart: new Date(subscription.current_period_start * 1000),
-                            currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+                            currentPeriodStart: new Date((subscription as Stripe.Subscription).current_period_start * 1000),
+                            currentPeriodEnd: new Date((subscription as Stripe.Subscription).current_period_end * 1000),
                         },
                     });
                 }
